@@ -160,8 +160,8 @@ console.log(fenomenler[2].followers);
 (işlev yazmanıza gerek yok)
 Fenomenler dizisinde bir yazım hatası var 😱 7. sıradaki fenomen 'Justin Bieber' ın soyismi 'Biber' olarak yanlış yazılmış. Bu sorunu düzeltin ve çalışmanızı kontrol etmek için console.log() yapın.*/
 
-console.log(fenomenler[6].profile = "Justin Bieber");
-//console.log(fenomenler[6].profile );
+fenomenler[6].profile = "Justin Bieber";
+console.log(fenomenler[6].profile );
 
 
 /*  Görev 3:
@@ -189,13 +189,12 @@ Aşağıdakileri yapmak için profilListesi'ni kullanın:
 */
 
 function profilListesi(dizi) {
-  /*let copy = [...dizi];
-
-  for(let i = 0; i < copy.length; i++){
-    copy = copy[i].profile;
+  
+  const kopya =[...dizi];
+  for(let i in kopya){
+    kopya[i] = kopya[i].profile;
   }
-
-  return copy;*/
+  return kopya;
 }
 
 profilListesi(fenomenler);
@@ -235,10 +234,10 @@ Aşağıdakileri yapmak için fenomenEkle'i kullanın:
 
 ÖRNEK: fenomenEkle(fenomenler, 6, "Workintech", 10000000, 2022, "Instagram") çağrıldığında dizinin sonuna yukarıdaki nesne en sona eklenerek yeni fenomenler dizisini döndürmelidir. */
 
-function fenomenEkle(dizi,sırano,profil,tsay,gsay,plat) {
+function fenomenEkle(dizi,sirano,profil,tsay,gsay,plat) {
   const copy = [...dizi];
   const yeni ={
-    "number": sırano,
+    "number": sirano,
     "profile": profil,
     "followers": tsay,
     "posts": gsay,
@@ -248,7 +247,7 @@ function fenomenEkle(dizi,sırano,profil,tsay,gsay,plat) {
   return copy;
 }
 
-fenomenEkle(fenomenler, 6, "Workintech", 10000000, 2022, "Instagram");
+console.log("fenomenEkle",fenomenEkle(fenomenler, 6, "Workintech", 10000000, 2022, "Instagram"));
 
 /* Görev 7:
 Aşağıdakileri yapmak için enFenomenler'yi kullanın:
@@ -258,8 +257,6 @@ Aşağıdakileri yapmak için enFenomenler'yi kullanın:
 ÖRNEK: enFenomenler(fenomenler) çağrıldığında sonuç olarak ["Instagram", "Cristiano Ronaldo", ... "Khabane lame"] dönemelidir
 */
 
-
-
 function enFenomenler(dizi) {
 
   const dizi2 = [];
@@ -267,7 +264,7 @@ function enFenomenler(dizi) {
   for(let i=0;i<dizi.length;i++){
     if(dizi[i].followers > 100000000 ){
 
-      dizi2.push(dizi[i].profile);
+      dizi2.push(dizi[i].profile); //[i]["profile"] da olabilirdi
       
     }
   }
@@ -291,9 +288,10 @@ function fenomenGonderimSayisi(dizi,profil){
       return dizi[i].posts;
     }
   }
+  return "NA bulamadım";
 }
 
-fenomenGonderimSayisi(fenomenler, 'Will Smith');
+console.log(fenomenGonderimSayisi(fenomenler, 'Will Smith'));
 
 /* Görev 9:
 Aşağıdakileri yapmak için platformaGoreCokGonderiYapanFenomen'ni kullanın:
@@ -307,13 +305,22 @@ Not: Gönderi sayısı belli olmayan (NA) hesaba katmayın.
 */
 
 function platformaGoreCokGonderiYapanFenomen(dizi,plat){
-  const dizi2 = [];
+  
+
+const test = [];
+let maxGonderiSay = 0; 
+let enPop = "";
+
   for(let i = 0 ; i < dizi.length; i++){
-    if(dizi[i].platform === plat && dizi[i].posts < dizi[i+1].posts){
-      
-      return dizi[i+1].profile;    
+    console.log("post say", dizi[i].posts,dizi[i].platform);
+    if(dizi[i].platform === plat && maxGonderiSay < dizi[i].posts && dizi[i].posts != "NA"){
+      test.push(dizi[i].profile);
+      maxGonderiSay = dizi[i].posts;
+      enPop = dizi[i].profile;
+      console.log("max",maxGonderiSay);
     } 
   }
+  return enPop; 
 }
 
 console.log(platformaGoreCokGonderiYapanFenomen(fenomenler, 'TikTok'));
